@@ -18,7 +18,6 @@ namespace ISM6225_Spring_2024_Assignment_2
             Console.WriteLine("Question 1:");
             int[] nums1 = { 0, 0, 1, 1, 1, 2, 2, 3, 3, 4 };
             int numberOfUniqueNumbers = RemoveDuplicates(nums1);
-            Console.WriteLine(numberOfUniqueNumbers);
 
             //Question 2:
             Console.WriteLine("Question 2:");
@@ -61,7 +60,7 @@ namespace ISM6225_Spring_2024_Assignment_2
             //Question 8:
             Console.WriteLine("Question 8:");
             string result = RemoveOccurrences("daabcbaabcbc", "abc");
-            Console.WriteLine(result);
+            Console.WriteLine($"{result}");
         }
 
         /*
@@ -99,8 +98,43 @@ namespace ISM6225_Spring_2024_Assignment_2
         {
             try
             {
-                // Write your code here and you can modify the return value according to the requirements
-                return 0;
+                if (nums.Length == 0) return 0;
+    
+    int i = 0; // Pointer for the next unique element
+    for (int j = 1; j < nums.Length; j++)
+    {
+        if (nums[j] != nums[i])
+        {
+            i++;
+            nums[i] = nums[j];
+        }
+    }
+
+    // Prepare the output string
+    StringBuilder output = new StringBuilder();
+    output.Append("Output: ");
+    output.Append(i + 1);
+    output.Append(", nums = [");
+
+    for (int k = 0; k < nums.Length; k++)
+    {
+        if (k <= i) {
+            output.Append(nums[k]); // Append the distinct value
+        } else {
+            output.Append("_"); // Append underscores for the non-distinct trailing values
+        }
+
+        if (k < nums.Length - 1) {
+            output.Append(", "); // Append comma separator between elements
+        }
+    }
+
+    output.Append("]");
+    
+    // Print the prepared output
+    Console.WriteLine(output.ToString());
+
+    return i + 1; 
             }
             catch (Exception)
             {
@@ -134,8 +168,21 @@ namespace ISM6225_Spring_2024_Assignment_2
         {
             try
             {
-                // Write your code here and you can modify the return value according to the requirements
-                return new List<int>();
+                int lastNonZeroFoundAt = 0;
+    // Move all the non-zero elements to the beginning of array keeping their order.
+    for (int i = 0; i < nums.Length; i++)
+    {
+        if (nums[i] != 0)
+        {
+            nums[lastNonZeroFoundAt++] = nums[i];
+        }
+    }
+    // Fill remaining array space with zeros.
+    for (int i = lastNonZeroFoundAt; i < nums.Length; i++)
+    {
+        nums[i] = 0;
+    }
+    return nums.ToList();
             }
             catch (Exception)
             {
@@ -185,8 +232,29 @@ namespace ISM6225_Spring_2024_Assignment_2
         {
             try
             {
-                // Write your code here and you can modify the return value according to the requirements
-                return new List<IList<int>>();
+                Array.Sort(nums);
+    IList<IList<int>> res = new List<IList<int>>();
+
+    for (int i = 0; i < nums.Length - 2; i++)
+    {
+        if (i == 0 || (i > 0 && nums[i] != nums[i - 1]))
+        {
+            int lo = i + 1, hi = nums.Length - 1, sum = 0 - nums[i];
+            while (lo < hi)
+            {
+                if (nums[lo] + nums[hi] == sum)
+                {
+                    res.Add(new List<int> { nums[i], nums[lo], nums[hi] });
+                    while (lo < hi && nums[lo] == nums[lo + 1]) lo++;
+                    while (lo < hi && nums[hi] == nums[hi - 1]) hi--;
+                    lo++; hi--;
+                }
+                else if (nums[lo] + nums[hi] < sum) lo++;
+                else hi--;
+            }
+        }
+    }
+    return res;
             }
             catch (Exception)
             {
@@ -220,8 +288,18 @@ namespace ISM6225_Spring_2024_Assignment_2
         {
             try
             {
-                // Write your code here and you can modify the return value according to the requirements
-                return 0;
+                int maxCount = 0, count = 0;
+    foreach (int num in nums)
+    {
+        if (num == 1)
+        {
+            count++;
+            maxCount = Math.Max(maxCount, count);
+        }
+        else count = 0;
+    }
+    return maxCount;
+                
             }
             catch (Exception)
             {
@@ -232,7 +310,9 @@ namespace ISM6225_Spring_2024_Assignment_2
         /*
 
         Question 5:
-        You are tasked with writing a program that converts a binary number to its equivalent decimal representation without using bitwise operators or the `Math.Pow` function. You will implement a function called `BinaryToDecimal` which takes an integer representing a binary number as input and returns its decimal equivalent. 
+        You are tasked with writing a program that converts a binary number to its equivalent decimal 
+        representation without using bitwise operators or the `Math.Pow` function. You will implement a 
+        function called `BinaryToDecimal` which takes an integer representing a binary number as input and returns its decimal equivalent. 
 
         Requirements:
         1. Your program should prompt the user to input a binary number as an integer. 
@@ -256,8 +336,15 @@ namespace ISM6225_Spring_2024_Assignment_2
         {
             try
             {
-                // Write your code here and you can modify the return value according to the requirements
-                return 0;
+                int decimalValue = 0, baseValue = 1;
+    while (binary > 0)
+    {
+        int lastDigit = binary % 10;
+        binary = binary / 10;
+        decimalValue += lastDigit * baseValue;
+        baseValue = baseValue * 2;
+    }
+    return decimalValue;
             }
             catch (Exception)
             {
@@ -294,8 +381,14 @@ namespace ISM6225_Spring_2024_Assignment_2
         {
             try
             {
-                // Write your code here and you can modify the return value according to the requirements
-                return 0;
+                if (nums.Length < 2) return 0;
+    Array.Sort(nums);
+    int maxGap = 0;
+    for (int i = 1; i < nums.Length; i++)
+    {
+        maxGap = Math.Max(maxGap, nums[i] - nums[i - 1]);
+    }
+    return maxGap;
             }
             catch (Exception)
             {
@@ -334,8 +427,15 @@ namespace ISM6225_Spring_2024_Assignment_2
         {
             try
             {
-                // Write your code here and you can modify the return value according to the requirements
-                return 0;
+                Array.Sort(nums);
+    for (int i = nums.Length - 3; i >= 0; i--)
+    {
+        if (nums[i] + nums[i + 1] > nums[i + 2])
+        {
+            return nums[i] + nums[i + 1] + nums[i + 2];
+        }
+    }
+    return 0;
             }
             catch (Exception)
             {
@@ -388,8 +488,20 @@ namespace ISM6225_Spring_2024_Assignment_2
         {
             try
             {
-                // Write your code here and you can modify the return value according to the requirements
-                return "";
+while (s.Contains(part))
+        {
+            // Find the index of the first occurrence of 'part' in 's'
+            int index = s.IndexOf(part);
+            
+            // Remove 'part' from 's' by creating a new string without the found 'part'
+            if (index != -1)
+            {
+                s = s.Remove(index, part.Length);
+            }
+        }
+
+        // Return the modified string 's' after all occurrences of 'part' have been removed
+        return s;                return "";
             }
             catch (Exception)
             {
