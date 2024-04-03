@@ -501,7 +501,7 @@ while (s.Contains(part))
         }
 
         // Return the modified string 's' after all occurrences of 'part' have been removed
-        return s;                return "";
+        return $"\"{s}\"";
             }
             catch (Exception)
             {
