@@ -100,7 +100,7 @@ namespace ISM6225_Spring_2024_Assignment_2
             {
                 if (nums.Length == 0) return 0;
     
-    int i = 0; // Pointer for the next unique element
+    int i = 0; 
     for (int j = 1; j < nums.Length; j++)
     {
         if (nums[j] != nums[i])
@@ -110,7 +110,7 @@ namespace ISM6225_Spring_2024_Assignment_2
         }
     }
 
-    // Prepare the output string
+    
     StringBuilder output = new StringBuilder();
     output.Append("Output: ");
     output.Append(i + 1);
@@ -119,19 +119,19 @@ namespace ISM6225_Spring_2024_Assignment_2
     for (int k = 0; k < nums.Length; k++)
     {
         if (k <= i) {
-            output.Append(nums[k]); // Append the distinct value
+            output.Append(nums[k]); 
         } else {
-            output.Append("_"); // Append underscores for the non-distinct trailing values
+            output.Append("_"); 
         }
 
         if (k < nums.Length - 1) {
-            output.Append(", "); // Append comma separator between elements
+            output.Append(", "); 
         }
     }
 
     output.Append("]");
     
-    // Print the prepared output
+    
     Console.WriteLine(output.ToString());
 
     return i + 1; 
@@ -169,7 +169,6 @@ namespace ISM6225_Spring_2024_Assignment_2
             try
             {
                 int lastNonZeroFoundAt = 0;
-    // Move all the non-zero elements to the beginning of array keeping their order.
     for (int i = 0; i < nums.Length; i++)
     {
         if (nums[i] != 0)
@@ -177,7 +176,6 @@ namespace ISM6225_Spring_2024_Assignment_2
             nums[lastNonZeroFoundAt++] = nums[i];
         }
     }
-    // Fill remaining array space with zeros.
     for (int i = lastNonZeroFoundAt; i < nums.Length; i++)
     {
         nums[i] = 0;
@@ -289,16 +287,16 @@ namespace ISM6225_Spring_2024_Assignment_2
             try
             {
                 int maxCount = 0, count = 0;
-    foreach (int num in nums)
-    {
-        if (num == 1)
-        {
-            count++;
-            maxCount = Math.Max(maxCount, count);
-        }
-        else count = 0;
-    }
-    return maxCount;
+                    foreach (int num in nums)
+                    {
+                        if (num == 1)
+                            {
+                                count++;
+                                maxCount = Math.Max(maxCount, count);
+                            }
+                            else count = 0;
+                    }
+                return maxCount;
                 
             }
             catch (Exception)
@@ -490,17 +488,12 @@ namespace ISM6225_Spring_2024_Assignment_2
             {
 while (s.Contains(part))
         {
-            // Find the index of the first occurrence of 'part' in 's'
             int index = s.IndexOf(part);
-            
-            // Remove 'part' from 's' by creating a new string without the found 'part'
             if (index != -1)
             {
                 s = s.Remove(index, part.Length);
             }
         }
-
-        // Return the modified string 's' after all occurrences of 'part' have been removed
         return $"\"{s}\"";
             }
             catch (Exception)
